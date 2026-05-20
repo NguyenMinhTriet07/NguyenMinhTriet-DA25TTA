@@ -1,30 +1,73 @@
 <!DOCTYPE html>
-<html lang = "vi">
-	<head>
-		<title>Trang chu </title>
-		<meta charset = "uft-8">
-	</head>
-	<body>
-		<ul>
-			<li>
-				<a href ="html/page1.html"> Trang thong tin ca nhan <a>
-			</li>
-			
-			<li>
-				<a href ="html/page2.html"> Login <a>
-			</li>
-			<li>
-				<a href ="html/page3.html"> Sign <a>
-			</li>
-			<li>
-				<a href ="html/page3.html"> page3 <a>
-			</li>
-			<li>
-				<a href ="html/page4.html"> page4 <a>
-			</li>
+<html lang="vi">
+<head>
+    <title>Trang chủ</title>
+    <meta charset="utf-8">
 
-		</ul>
-	</body>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 400px;
+        }
 
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 10px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(90deg, #43e97b, #38f9d7);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Bài thực hành thiết kế web</h2>
+
+        <ul>
+            <li><a href="html/page1.html">Trang thông tin cá nhân</a></li>
+            <li><a href="html/page2.html">Login</a></li>
+            <li><a href="html/page3.html">Sign</a></li>
+            <li><a href="html/page3.html">Page 3</a></li>
+            <li><a href="html/page4.html">Page 4</a></li>
+        </ul>
+    </div>
+</body>
 </html>
