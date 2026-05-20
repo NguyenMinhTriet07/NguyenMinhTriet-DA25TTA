@@ -1,0 +1,46 @@
+*{
+	font-size:20px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: Indigo ;
+}
+#h2{
+	text-align : center;
+}
+.coinstan {
+	padding :15px 15px;
+	background-color : LightPink;
+	display : block;
+	margin : 100px 600px;
+	border-radius: 10px;
+}
+label{
+	display : block;
+	margin : 8px;
+}
+
+input.frlogin2{
+	display: block;
+	margin : 7px;
+	
+
+}
+input.button{
+	
+margin : 7px;
+
+}
+input.buttonn{
+	
+margin : 7px;
+}
+form#formlogin{
+	
+	background-color :HoneyDew;
+	
+	
+}
+.input1{
+	width:80%;
+	margin : 5px ;
+	
+}
