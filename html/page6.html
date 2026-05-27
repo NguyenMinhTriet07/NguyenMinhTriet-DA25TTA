@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Nhập thong tin bản thân </title>
+    <meta charset="utf-8">
+<body>
+	<script>
+		let d;
+		let r;
+		
+		do{
+			 d = Number(prompt ("Hãy nhập độ dài hình chữ nhật ")) ;
+			 r = Number(prompt("Hãy nhập độ rộng hình chữ nhật "));
+		}while (r>d);
+		
+		if(r<d)
+			window.alert("Diện tích hình chữ nhật là " + d*r);
+		else
+			window.alert("TRƯỜNG HỢP ĐẶC BIỆT LÀ HÌNH VUÔNG CÓ DIỆN TÍCH LÀ" + d*r );
+	</script>
+</body>
+</html>
