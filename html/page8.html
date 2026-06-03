@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title> Thiết kế trang giới thiệu thông tin sản phẩm </title>
-    <meta charset="utf-8">
-    
+	<title> Thiết kế trang giới thiệu thông tin sản phẩm </title>
+	<meta charset="utf-8">
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<div class = "container">
@@ -29,6 +33,8 @@
 		const img = document.createElement("img");
 		img.setAttribute("src","../assets/imge/caythong.webp");
 		img.setAttribute("style","width:100%; max-width:150px");
+		img.setAttribute("class","card-body", "rounded-circle");
+		img.setAttribute("class", "rounded-circle");
 		
 		//tạo ảnh
 		containerImage.appendChild(img);
@@ -39,8 +45,9 @@
 
 		//tạo <p> chứa tên sản phẩm	
 		const nameProduct = document.createElement("p");
-		nameProduct.innerHTML = " Cay thong ";
-
+		nameProduct.innerHTML = " Cây thông ";
+		containerInfo.setAttribute("class","alert alert-info");
+	
 		//tạo <p> chứa giá sản phẩm
 		const price = document.createElement("p");
 		price.innerHTML = " 300k/tui ";
@@ -53,6 +60,7 @@
 		const linkProduct = document.createElement("a");
   		linkProduct.innerHTML = ("Xem chi tiết");
   		linkProduct.setAttribute("href", "page6.html");
+		linkProduct.setAttribute("class", "btn btn-primary")
 
 		//Gắn 4 con vào khung chứa Info
 		containerInfo.appendChild(nameProduct);
