@@ -2,44 +2,61 @@
 <html lang = "vi">
 <head>
 	<title> Hóa đơn tính tiền </title>
-	<meta charset = "uft-8">
+	<meta charset = "utf-8">
+	<link rel = "stylesheet" href ="../css/stype7.css">
+</head>
 <body>
-	<tr> Hóa đơn mua hàng </tr>
+	<table border = "1">
+	<tr > <td colspan = "6">Hóa đơn mua hàng</td> </tr>
 	<tr>
 		<td>STT</td>
 		<td>Tên</td>
 		<td>Số lượng </td>
 		<td>Đơn giá </td>
 		<td>Đvt</td>
-		<td>Thành tiền</td>
+		<td >Thành tiền</td>
 	</tr>
 	<tr>
 		<td>1</td>
 		<td>Mì Colusa</td>
-		<td>2 </td>
-		<td>105 CP </td>
+		<td class = "soluong"> 2 </td>
+		<td class = "dongia">105 </td>
 		<td>Thùng</td>
-		<td> </td>
+		<td class = "thanhtien"> ?</td>
 	</tr>
 	<tr>
 		<td>2</td>
 		<td>Sửa ông thọ</td>
-		<td>4</td>
-		<td>200 </td>
+		<td class = "soluong">4</td>
+		<td class = "dongia">200 </td>
 		<td>Thùng</td>
-		<td> </td>
+		<td class = "thanhtien"> ?</td>
 	</tr>
 	<tr>
 		<td>3</td>
 		<td>Xúc xích CP</td>
-		<td>Số 120 </td>
-		<td>Đơn giá </td>
-		<td>Đvt</td>
-		<td>Thành tiền</td>	
+		<td class = "soluong">120 </td>
+		<td class = "dongia">45 </td>
+		<td>túi</td>
+		<td class = "thanhtien"> ? </td>	
 	</tr>
+	<tr>		
+		<td colspan = "5">Tổng thanh toán</td>
+		<td id = "thanhtoan">?</td>
+	</tr>
+	</table>
+	<script>
+		const sl = document.getElementsByClassName("soluong");
+		const dg = document.getElementsByClassName("dongia");
+		const tt = document.getElementsByClassName("thanhtien");
 
-
-
-
-
+		let tongthanhtoan = 0;
+		for(let i = 0 ; i<sl.length;i++)
+		{
+			tt[i].innerHTML = Number(sl[i].innerHTML)*Number(dg[i].innerHTML);
+			tongthanhtoan += Number(tt[i].innerHTML);
+			
+		}
+		document.getElementById("thanhtoan").innerHTML = tongthanhtoan;
+	</script>
 </body>
