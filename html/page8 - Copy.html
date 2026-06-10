@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<title> Thiết kế trang giới thiệu thông tin sản phẩm </title>
+	<meta charset="utf-8">
+	<!-- Latest compiled and minified CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<div class = "container">
+		<div id = "product-list">
+			<!-- chứa danh sách sản phẩm -->
+			
+		</div>
+	</div>    
+	<script>
+		//xác định khung chưa 
+		const listProducts = document.getElementById("product-list");
+
+		//Tạo 1 container ccos class item 
+		const item = document.createElement("div");
+		item.setAttribute("class","item");
+
+		//Tạo 2 khung chứa hình ảnh và thông tin 
+		//Tạo 1 container chứa hình ảnh có class
+		const containerImage = document.createElement("div");
+		containerImage.setAttribute("class","image");
+		
+ 		//tạo ảnh		
+		const img = document.createElement("img");
+		img.setAttribute("src","../assets/imge/caythong.webp");
+		img.setAttribute("style","width:100%; max-width:150px");
+		img.setAttribute("class","card-body", "rounded-circle");
+		img.setAttribute("class", "rounded-circle");
+		
+		//tạo ảnh
+		containerImage.appendChild(img);
+	
+		//tạo 1 container chứa thông tin sản phẩm có class
+		const containerInfo = document.createElement("div");
+		containerInfo.setAttribute("class","info");
+
+		//tạo <p> chứa tên sản phẩm	
+		const nameProduct = document.createElement("p");
+		nameProduct.innerHTML = " Cây thông ";
+		containerInfo.setAttribute("class","alert alert-info");
+	
+		//tạo <p> chứa giá sản phẩm
+		const price = document.createElement("p");
+		price.innerHTML = " 300k/tui ";
+
+		//tạo <p> chứa mô tả sản phẩm
+		const description = document.createElement("p");
+		description.innerHTML = " Cây thông (đặc biệt là cây thông Noel dùng để trang trí) có nguồn gốc từ Đức.";
+		
+		//chứa liên kết
+		const linkProduct = document.createElement("a");
+  		linkProduct.innerHTML = ("Xem chi tiết");
+  		linkProduct.setAttribute("href", "caythong.html");
+		linkProduct.setAttribute("class", "btn btn-primary")
+
+		//Gắn 4 con vào khung chứa Info
+		containerInfo.appendChild(nameProduct);
+		containerInfo.appendChild(price);
+		containerInfo.appendChild(description);
+		containerInfo.appendChild(linkProduct);
+
+		//Thêm khung chứa Image vào item
+		item.appendChild(containerImage);
+		item.appendChild(containerInfo);
+
+		//Thêm Item vào list product
+		listProducts.appendChild(item);
+		listProducts.setAttribute("style","color:red; background-color:pink;");
+</script>
+		
+</body>
+</html>
