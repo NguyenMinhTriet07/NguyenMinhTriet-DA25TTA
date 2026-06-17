@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>Thiết kế trang giới thiệu thông tin sản phẩm & Giỏ hàng</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        /* Định dạng hiệu ứng zoom cho thẻ sản phẩm */
+        .product-card {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #742626;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .product-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body style="background-color: #f2f2f2;">
+    
+    <div class="container my-5">
+        <div class="text-center mb-5 p-4 bg-white rounded shadow-sm">
+            <h1 class="fw-bold text-success">CỬA HÀNG SINH VẬT CẢNH ĐA DẠNG</h1>
+            <p class="text-muted">Chuyên cung cấp hạt giống độc lạ và các loài động vật quý hiếm trên thế giới.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <h3 class="mb-4 fw-bold text-dark">Danh sách sản phẩm</h3>
+                <div id="product-list" class="row g-4">
+                    </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 20px;">
+                    <h3 class="mb-4 fw-bold text-dark">Giỏ hàng của bạn</h3>
+                    <div class="card p-3 shadow-sm bg-white border-0">
+                        <ul id="cart-list" class="list-group list-group-flush mb-3">
+                            </ul>
+                        <div class="d-flex justify-content-between align-items-center fw-bold fs-5 border-top pt-3">
+                            <span class="text-secondary fs-6">Tổng tiền:</span>
+                            <span id="cart-total" class="text-danger">0$</span>
+                        </div>
+                        <button class="btn btn-success w-100 mt-3 fw-bold py-2 shadow-sm" onclick="checkout()">
+                            💳 Tiến hành thanh toán
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script>
+        // MẢNG DỮ LIỆU SẢN PHẨM CỦA BẠN (Đã chuẩn hóa lại trường price thành số để dễ tính toán)
+        const products = [
+            { id: 1, name: "Hạt giống cây thông từ Đức", price: 300, unit: "$/túi", description: "Cây thông Noel dùng để trang trí có nguồn gốc từ Đức.", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&q=80" },
+            { id: 2, name: "Hươu cao cổ", price: 10000, unit: "$/con", description: "Hươu cao cổ là loài động vật có vú trên cạn cao nhất thế giới.", image: "https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=400&q=80" },
+            { id: 3, name: "Koala", price: 1000, unit: "$/con", description: "Loài thú có túi ăn lá khuynh diệp đặc trưng của nước Úc.", image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400&q=80" },
+            { id: 4, name: "Chuột túi", price: 5000, unit: "$/con", description: "Kangaroo sử dụng việc nhảy bằng hai chân làm phương thức di chuyển.", image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=400&q=80" },
+            { id: 6, name: "Gấu trúc", price: 15000, unit: "$/con", description: "Dành phần lớn thời gian để đi lang thang và ăn trong các rừng tre.", image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&q=80" },
+            { id: 7, name: "Linh miêu", price: 19000, unit: "$/con", description: "Sinh sống trong các khu rừng nằm ở độ cao lớn với bụi cỏ rậm rạp.", image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=400&q=80" }
+        ];
+
+        // KHỞI TẠO GIỎ HÀNG TỪ LOCALSTORAGE
+        let cart = JSON.parse(localStorage.getItem("petShopCart")) || [];
+
+        // HÀM TẠO TỪNG THẺ SẢN PHẨM (Được tối ưu lại từ hàm createItem cũ của bạn)
+        function createItem(obj) {
+            const listProducts = document.getElementById("product-list");
+
+            // Tạo cột chứa sản phẩm
+            const col = document.createElement("div");
+            col.className = "col-12 col-md-6 col-lg-6";
+
+            // Tạo thẻ Card sản phẩm
+            const card = document.createElement("div");
+            card.className = "product-card p-3 text-center";
+
+            // Khung chứa hình ảnh
+            const containerImage = document.createElement("div");
+            const img = document.createElement("img");
+            img.src = obj.image;
+            img.className = "product-img rounded-circle border shadow-sm";
+            containerImage.appendChild(img);
+
+            // Khung chứa thông tin
+            const containerInfo = document.createElement("div");
+            containerInfo.className = "alert alert-info mt-3 d-flex flex-column flex-grow-1 text-start";
+            containerInfo.style.color = "#212529";
+
+            const nameProduct = document.createElement("h5");
+            nameProduct.className = "fw-bold text-dark text-truncate";
+            nameProduct.innerHTML = obj.name;
+
+            const price = document.createElement("p");
+            price.className = "text-danger fw-bold mb-1 fs-5";
+            price.innerHTML = obj.price.toLocaleString('en-US') + obj.unit;
+
+            const description = document.createElement("p");
+            description.className = "text-muted small flex-grow-1";
+            description.innerHTML = obj.description;
+
+            // Khung chứa nhóm nút bấm hành động
+            const btnGroup = document.createElement("div");
+            btnGroup.className = "d-flex gap-2 mt-auto";
+
+            // Nút Xem chi tiết
+            const linkProduct = document.createElement("a");
+            linkProduct.innerHTML = "Xem chi tiết";
+            linkProduct.href = "chitiet.html?id=" + obj.id;
+            linkProduct.className = "btn btn-outline-primary btn-sm flex-grow-1 fw-bold";
+
+            // NÚT THÊM VÀO GIỎ HÀNG (MỚI BỔ SUNG)
+            const btnAddToCart = document.createElement("button");
+            btnAddToCart.innerHTML = "🛒 Thêm giỏ";
+            btnAddToCart.className = "btn btn-danger btn-sm flex-grow-1 fw-bold";
+            btnAddToCart.onclick = function() {
+                addToCart(obj);
+            };
+
+            // Gắn kết các thành phần
+            btnGroup.appendChild(linkProduct);
+            btnGroup.appendChild(btnAddToCart);
+
+            containerInfo.appendChild(nameProduct);
+            containerInfo.appendChild(price);
+            containerInfo.appendChild(description);
+            containerInfo.appendChild(btnGroup);
+
+            card.appendChild(containerImage);
+            card.appendChild(containerInfo);
+            col.appendChild(card);
+            listProducts.appendChild(col);
+        }
+
+        // HÀM TẢI TẤT CẢ SẢN PHẨM
+        function loadAllProducts(objArray) {
+            document.getElementById("product-list").innerHTML = ""; // Xóa dữ liệu cũ trước khi render
+            for (let i = 0; i < objArray.length; i++) {
+                createItem(objArray[i]);
+            }
+        }
+
+        // ================= HỆ THỐNG LOGIC GIỎ HÀNG VÀ ĐỊNH DẠNG (MỚI) =================
+        
+        // 1. Thêm sản phẩm
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+        }
+
+        // 2. Xóa sản phẩm khỏi giỏ
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        // 3. Cập nhật giao diện giỏ hàng
+        function updateCartUI() {
+            localStorage.setItem("petShopCart", JSON.stringify(cart));
+            const cartList = document.getElementById("cart-list");
+            const cartTotal = document.getElementById("cart-total");
+
+            if (cart.length === 0) {
+                cartList.innerHTML = `<li class="text-muted text-center py-4 small">Chưa có sản phẩm nào trong giỏ hàng.</li>`;
+                cartTotal.innerText = "0$";
+                return;
+            }
+
+            let total = 0;
+            cartList.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0 border-bottom py-2">
+                        <div style="max-width: 70%;">
+                            <span class="fw-bold small d-block text-truncate">${item.name}</span>
+                            <small class="text-muted">${item.price.toLocaleString('en-US')}$ x ${item.quantity}</small>
+                        </div>
+                        <button class="btn btn-sm btn-link text-danger p-0 border-0 text-decoration-none small fw-bold" onclick="removeFromCart(${item.id})">Xóa</button>
+                    </li>
+                `;
+            }).join('');
+
+            cartTotal.innerText = total.toLocaleString('en-US') + "$";
+        }
+
+        // 4. Hàm thanh toán
+        function checkout() {
+            if (cart.length === 0) return alert("Giỏ hàng đang trống!");
+            alert("Đơn hàng của bạn đã gửi đi thành công!");
+            cart = [];
+            updateCartUI();
+        }
+
+        // CHẠY KHỞI TẠO KHI TẢI TRANG
+        loadAllProducts(products);
+        updateCartUI();
+    </script>
+</body>
+</html>

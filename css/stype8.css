@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    /* Căn giữa theo cả chiều ngang và dọc */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Màu nền trang */
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+
+    font-family: Arial, sans-serif;
+}
+
+#container {
+    width: 500px;
+    text-align: center;
+
+    /* Màu nền khối */
+    background-color: white;
+
+    padding: 20px;
+    border-radius: 15px;
+
+    /* Đổ bóng */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+}
+
+#name {
+    color: #333;
+    margin-top: 15px;
+}
+
+#price {
+    color: red;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#description {
+    color: #666;
+}
